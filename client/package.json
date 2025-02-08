@@ -13,8 +13,14 @@
     "url": "https://github.com/phaserjs/template-svelte/issues"
   },
   "homepage": "https://github.com/phaserjs/template-svelte#readme",
-  "keywords": ["phaser", "phaser3", "svelte", "vite"],
+  "keywords": [
+    "phaser",
+    "phaser3",
+    "svelte",
+    "vite"
+  ],
   "scripts": {
+    "prepare": "svelte-kit sync",
     "dev": "node log.js dev & vite --config vite/config.dev.mjs",
     "build": "node log.js build & vite build --config vite/config.prod.mjs",
     "dev-nolog": "vite --config vite/config.dev.mjs",
