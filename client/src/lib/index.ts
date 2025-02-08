@@ -1,8 +1,9 @@
 import { hc } from "hono/client";
 import type app from "server";
 
-export function panic(message: string): never {
+export function panic(message: string, ...info: unknown[]): never {
   console.error(message);
+  console.error(info);
   throw new Error(message);
 }
 export function env(name: string): string {

@@ -1,4 +1,4 @@
-import type { Entity, EntityKind } from "./types";
+import type { Entity, EntityKind, EntityKindID } from "./types";
 
 export const attackers: EntityKind[] = [
   {
@@ -23,6 +23,14 @@ export const intercepters: EntityKind[] = [
     speed: 0,
   },
 ];
+
+export const entities: Map<EntityKindID, EntityKind> = (() => {
+  const entities = new Map();
+  for (const e of attackers.concat(intercepters)) {
+    entities.set(e.name, e);
+  }
+  return entities;
+})();
 
 export function findTarget(self: Entity, entities: Entity[]) {
   return null;

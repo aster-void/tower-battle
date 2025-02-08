@@ -1,16 +1,8 @@
 <script lang="ts">
-import { client } from "$lib";
+  import { profile, Table } from "core/table";
+  import TableRenderer from "~/renderer/Table.svelte";
 
-const width = 10;
-const height = 10;
+  const table = new Table(profile.size.w, profile.size.h, profile.path);
 </script>
 
-<div id="table">
-  {#each { length: height } as _}
-    <div>
-      {#each { length: width } as _}
-        <span> </span>
-      {/each}
-    </div>
-  {/each}
-</div>
+<TableRenderer {table} />

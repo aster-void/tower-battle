@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "serve": "bun run build/index.js",
-    "prepare": "svelte-kit sync || echo ''",
+    "sync": "svelte-kit sync || echo ''",
+    "prepare": "bun sync",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "core": "file:../core",
-    "hono": "^4.7.0"
+    "hono": "^4.7.0",
+    "typescript-svelte-plugin": "^0.3.45"
   }
 }

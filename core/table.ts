@@ -23,9 +23,12 @@ export class Cell {
   ) {}
 }
 
+/**
+  first coord = start
+  last coord = goal
+*/
 export class Path {
-  corners: Coord[];
-  constructor(corners: Coord[]) {
+  constructor(public corners: Coord[]) {
     this.corners = corners;
   }
   *window(): Generator<[Coord, Coord]> {
@@ -54,14 +57,33 @@ export class Path {
             : panic("neither x-x or y-y are equal");
 
       const iter = new Coord(a.x, a.y);
-      while (!iter.eq(b)) {
+      while (!b.eq(iter)) {
         yield iter;
-        iter.x += direction[0];
-        iter.y += direction[1];
+        iter.y += direction[0];
+        iter.x += direction[1];
+        console.log(b, iter);
       }
     }
   }
 }
+
+const path_profiles = [
+  {
+    size: {
+      w: 6,
+      h: 6,
+    },
+    path: new Path([
+      new Coord(1, 0),
+      new Coord(1, 1),
+      new Coord(4, 1),
+      new Coord(4, 4),
+      new Coord(1, 4),
+      new Coord(1, 5),
+    ]),
+  },
+];
+export const profile = path_profiles[0];
 
 export class Table {
   path: Path;

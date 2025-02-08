@@ -3,6 +3,9 @@ install:
     cd core; bun install
     cd server; bun install
     cd client; bun install
+    just sync
+sync:
+    cd client; bun sync
 
 dev:
     trap 'kill 0' EXIT; just dev-client & just dev-server & wait
