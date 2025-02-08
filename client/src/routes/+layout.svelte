@@ -1,10 +1,7 @@
 <script lang="ts">
-  import "../global.css";
-  const { children } = $props();
-</script>
+import "../tailwind.css";
 
-<svelte:head>
-  <title>Phaser Svelte Template</title>
-</svelte:head>
+const { children } = $props();
+</script>
 
 {@render children()}

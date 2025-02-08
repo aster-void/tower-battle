@@ -1,6 +1,20 @@
+export type EntityKind = {
+  name: string;
+  image: string;
+  health: number;
+  range: number;
+  damage: number;
+  attacker: boolean;
+  speed: number;
+};
+
 export type Entity = {
-  id: number;
-  todo: unknown;
+  kind: string;
+  team: string;
+  location: {
+    x: number;
+    y: number;
+  };
 };
 
 export type GameEvent = {
@@ -8,7 +22,8 @@ export type GameEvent = {
 };
 
 export type GameState = {
-  todo: never;
+  playerHealths: Map<string, number>;
+  attackTimings: Map<string, number>;
 };
 
 export type GameFrame = {

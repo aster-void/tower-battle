@@ -10,7 +10,8 @@
     "ignore": []
   },
   "formatter": {
-    "enabled": false,
+    "enabled": true,
+    "indentStyle": "space"
   },
   "organizeImports": {
     "enabled": true
