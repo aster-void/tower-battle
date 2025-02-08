@@ -1,12 +1,10 @@
 <script context="module" lang="ts">
+import type { Game, Scene } from "phaser";
 
-    import type { Game, Scene } from "phaser";
-
-    export type TPhaserRef = {
-        game: Game | null,
-        scene: Scene | null
-    };
-
+export type TPhaserRef = {
+	game: Game | null;
+	scene: Scene | null;
+};
 </script>
 
 <script lang="ts">
