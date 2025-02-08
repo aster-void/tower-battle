@@ -4,10 +4,10 @@
   import type { MainMenu } from "../game/scenes/MainMenu";
 
   // The sprite can only be moved in the MainMenu Scene
-  let canMoveSprite = false;
+  let canMoveSprite = $state(false);
 
   //  References to the PhaserGame component (game and scene are exposed)
-  const phaserRef: TPhaserRef = { game: null, scene: null };
+  let phaserRef: TPhaserRef = $state({ game: null, scene: null });
   const spritePosition = { x: 0, y: 0 };
 
   const changeScene = () => {
