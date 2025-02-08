@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
   import type { Game, Scene } from "phaser";
 
   export type TPhaserRef = {
@@ -12,12 +12,16 @@
   import StartGame from "./main";
   import { EventBus } from "./EventBus";
 
-  export let phaserRef: TPhaserRef = {
-    game: null,
-    scene: null,
-  };
-
-  export let currentActiveScene: (scene: Scene) => void | undefined;
+  const {
+    phaserRef = $bindable({
+      game: null,
+      scene: null,
+    }),
+    currentActiveScene,
+  }: {
+    phaserRef: TPhaserRef;
+    currentActiveScene: (scene: Scene) => void | undefined;
+  } = $props();
 
   onMount(() => {
     phaserRef.game = StartGame("game-container");

@@ -20,6 +20,7 @@
     ],
     "scripts": {
       "prepare": "svelte-kit sync",
+      "check": "svelte-kit sync && svelte-check",
       "dev": "bun log.js dev & vite --config vite/config.dev.mjs",
       "build": "bun log.js build & vite build --config vite/config.prod.mjs",
       "dev-nolog": "vite --config vite/config.dev.mjs",
