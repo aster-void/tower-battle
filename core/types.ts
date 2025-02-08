@@ -3,28 +3,17 @@ export type EntityKindID = string;
 
 export type EntityKind = {
   name: EntityKindID;
+  kind: "attacker" | "defender";
   size: {
     width: number;
     height: number;
   };
   image: string;
   health: number;
-  range: number;
+  reach: number;
   damage: number;
   attacker: boolean;
   speed: number;
-};
-
-export type Entity = {
-  id: EntityID;
-  kind: EntityKindID;
-  team: string;
-  pos: {
-    x: number;
-    y: number;
-  };
-  // 360 max.
-  rotation: number;
 };
 
 export type GameEvent =
@@ -42,13 +31,3 @@ export type GameEvent =
       kind: "Death";
       target: EntityID;
     };
-
-export type GameState = {
-  playerHealths: Map<string, number>;
-  attackTimings: Map<string, number>;
-  entities: Entity[];
-};
-
-export type GameFrame = {
-  todo: never;
-};

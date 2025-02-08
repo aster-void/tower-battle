@@ -1,26 +1,37 @@
-import type { Entity, EntityKind, EntityKindID } from "./types";
+import type { EntityKind, EntityKindID } from "./types";
+import { panic } from "./utils";
 
 export const attackers: EntityKind[] = [
   {
     name: "a",
+    kind: "attacker",
     image: "todo",
     health: 10,
     attacker: true,
     speed: 10,
-    range: 2,
+    reach: 2,
     damage: 1,
+    size: {
+      width: 1,
+      height: 1,
+    },
   },
 ];
 
 export const intercepters: EntityKind[] = [
   {
-    name: "a",
+    name: "b",
+    kind: "defender",
     image: "todo",
     health: 1,
     damage: 1,
-    range: 5,
+    reach: 5,
     attacker: false,
     speed: 0,
+    size: {
+      width: 1,
+      height: 1,
+    },
   },
 ];
 
@@ -32,6 +43,6 @@ export const entities: Map<EntityKindID, EntityKind> = (() => {
   return entities;
 })();
 
-export function findTarget(self: Entity, entities: Entity[]) {
-  return null;
+export function getEntityKind(id: EntityKindID): EntityKind {
+  return entities.get(id) ?? panic(`EntityKind not found for ${id}`);
 }

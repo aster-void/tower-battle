@@ -1,7 +1,7 @@
 <script lang="ts">
   import Dirt from "~/assets/dirt.webp";
   import Grass from "~/assets/grass.jpg";
-  import type { Table } from "core/table";
+  import type { Table } from "core";
   import { CELL_SIZE } from "~/lib/states.svelte";
   type Props = {
     table: Table;
@@ -20,6 +20,8 @@
           height={CELL_SIZE.value}
           class:width={CELL_SIZE.value}
           class:height={CELL_SIZE.value}
+          class="undraggable"
+          draggable="false"
         />
       {:else}
         <img
@@ -29,6 +31,8 @@
           height={CELL_SIZE.value}
           class:width={CELL_SIZE.value}
           class:height={CELL_SIZE.value}
+          class="undraggable"
+          draggable="false"
         />
       {/if}
     {/each}
@@ -44,6 +48,10 @@
     line-height: 0px;
   }
   img {
+    user-select: none;
     display: inline;
+  }
+  .undraggable {
+    user-drag: none;
   }
 </style>
