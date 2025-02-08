@@ -3,3 +3,5 @@
 
   client.index.$get();
 </script>
+
+<span class="text-red-500">helloo</span>

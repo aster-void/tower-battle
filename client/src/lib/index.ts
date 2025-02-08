@@ -6,7 +6,7 @@ export function panic(message: string): never {
 	throw new Error(message);
 }
 export function env(name: string): string {
-	return process.env[name] ?? panic(`env var ${name} not found`);
+	return import.meta.env[name] ?? panic(`env var ${name} not found`);
 }
 
-export const client = hc<typeof app>(env("API_ENDPOINT"));
+export const client = hc<typeof app>(env("VITE_API_ENDPOINT"));
