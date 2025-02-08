@@ -22,4 +22,4 @@ check-client:
 
 fix: format
 format:
-    biome format . --fix
+    deno fmt .
