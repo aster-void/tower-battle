@@ -1,0 +1,4 @@
+
+[[language]]
+name = "svelte"
+language-servers = ["tailwind", "svelteserver", "biome"]

@@ -19,3 +19,7 @@ check-server:
     cd server; bun check
 check-client:
     cd client; bun check
+
+fix: format
+format:
+    deno fmt .
