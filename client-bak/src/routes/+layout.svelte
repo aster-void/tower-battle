@@ -1,7 +1,7 @@
 <script lang="ts">
-  import "../tailwind.css";
+import "../tailwind.css";
 
-  const { children } = $props();
+const { children } = $props();
 </script>
 
 {@render children()}

@@ -2,8 +2,8 @@
 import type { Game, Scene } from "phaser";
 
 export type TPhaserRef = {
-	game: Game | null;
-	scene: Scene | null;
+  game: Game | null;
+  scene: Scene | null;
 };
 </script>
 
