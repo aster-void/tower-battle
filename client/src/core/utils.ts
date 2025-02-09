@@ -1,6 +1,6 @@
 export function panic(message: string, ...logs: unknown[]): never {
   console.error(message);
-  console.log(logs);
+  console.error("logs:", ...logs);
   throw new Error(message);
 }
 

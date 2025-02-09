@@ -1,11 +1,15 @@
 <script lang="ts">
   import type { GameState } from "core";
 
-  const { game }: { game: GameState } = $props();
+  const { game, player }: { game: GameState; player: string } = $props();
 </script>
 
 {#if game.scene.kind === "finished"}
   <h1 class="text-2xl">
-    {game.scene.winner} WIN!
+    {#if player === game.scene.winner}
+      YOU WIN!
+    {:else}
+      you lose...
+    {/if}
   </h1>
 {/if}

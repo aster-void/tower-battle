@@ -4,6 +4,7 @@ import type { EntityID, EntityKind, EntityKindID } from "./types";
 import type { GameState } from "./game.svelte";
 import { getEntityKind } from "./entities";
 import { assert, panic } from "./utils";
+import { diffToDeg } from "./math";
 
 export class Entity {
   id: EntityID;
@@ -11,7 +12,7 @@ export class Entity {
   team: string;
   pos: Coord = $state(new Coord(0, 0));
   // 360 max.
-  rotation: number;
+  rotation: number = $state(0);
   health: number;
   walk: Walkable | null;
 
@@ -21,6 +22,7 @@ export class Entity {
     team: string,
     pos: Coord,
     public targetPlayer: string | null,
+    direction: number,
   ) {
     this.id = id;
     this.kind = getEntityKind(kind);
@@ -28,20 +30,24 @@ export class Entity {
     this.pos = pos;
     this.rotation = 0;
     this.health = this.kind.health;
-    this.walk = this.targetPlayer ? new Walkable(this.targetPlayer) : null;
+    this.walk = this.targetPlayer
+      ? new Walkable(this.targetPlayer, direction)
+      : null;
   }
 
   tick(ctx: GameState) {
     const t = this.findTarget(ctx);
     const target = t ? ctx.locate(t) : null;
-    console.log("ticking", this.id);
     if (target) {
       // attack
-      console.log("attacking", target.kind.name);
       this.faceAt(target.pos);
+      ctx.events.push({
+        kind: "TakeDamage",
+        target: target.id,
+        amount: this.kind.damage,
+      });
     } else if (this.kind.kind === "attacker") {
       // walk
-      console.log("walking");
       if (!this.walk) panic("you shouldn't walk a non-walker");
       const result = this.walk.step(ctx.table.path, this.kind.speed);
       if (result.kind === "goal") {
@@ -53,36 +59,29 @@ export class Entity {
         });
       } else {
         this.pos = result.pos;
+        this.rotate(result.facing);
       }
     } else {
-      console.log("noop");
       // stay = noop
     }
   }
 
   findTarget(ctx: GameState): EntityID | null {
     const reachable = ctx.entities
+      .filter((e) => e.team !== this.team)
       .map((e) => ({
         entity: e,
         dist: this.pos.distance(e.pos),
       }))
-      .filter((t) => t.entity.team !== this.team && t.dist < this.kind.reach)
+      .filter((t) => t.dist < this.kind.reach)
       .sort((a, b) => a.dist - b.dist)
       .map((t) => t.entity);
     return reachable[0]?.id ?? null;
   }
   faceAt(other: Coord) {
-    this.rotate(diffToDeg(this.pos, other));
+    this.rotate(diffToDeg(this.pos, other) + 90);
   }
   rotate(rotation: number) {
     this.rotation = rotation;
   }
-}
-
-function diffToDeg(a: Coord, b: Coord) {
-  // https://stackoverflow.com/questions/36727257/calculating-rotation-degrees-based-on-delta-x-y-movement-of-touch-or-mouse
-  const diff = a.diff(b);
-  const cos = diff.distance(new Coord(0, 0)) / diff.x;
-  const rad = Math.acos(cos);
-  return rad * 57.2958;
 }

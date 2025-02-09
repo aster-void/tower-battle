@@ -30,7 +30,7 @@ const profiles: GameProfile[] = [
       new Coord(4, 1),
       new Coord(4, 4),
       new Coord(1, 4),
-      new Coord(1, 5),
+      new Coord(1, 6),
     ]),
     defaultHealth: 100,
     goalScore: 10,

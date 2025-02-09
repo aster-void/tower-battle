@@ -18,12 +18,6 @@ export type EntityKind = {
 
 export type GameEvent =
   | {
-      kind: "Fire";
-      shooter: EntityID;
-      target: EntityID;
-      amount: number;
-    }
-  | {
       kind: "TakeDamage";
       target: EntityID;
       amount: number;

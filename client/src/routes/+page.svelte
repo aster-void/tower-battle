@@ -4,14 +4,16 @@
   import Running from "~/scenes/running.svelte";
   import Finished from "~/scenes/finished.svelte";
 
-  let game = $state(new GameState(profile, ["0", "1"]));
+  const player = Math.random().toString();
+  const opponent = Math.random().toString();
+  const game = $state(new GameState(profile, [player, opponent]));
 
   onMount(() => {
     const id = setInterval(() => {
       if (game.scene.kind === "running") {
         game.tick();
       }
-    }, 500);
+    }, 50);
     return () => {
       clearInterval(id);
     };
@@ -19,7 +21,7 @@
 </script>
 
 {#if game.scene.kind === "running"}
-  <Running {game} />
+  <Running {game} {player} />
 {:else if game.scene.kind === "finished"}
-  <Finished {game} />
+  <Finished {game} {player} />
 {/if}

@@ -4,8 +4,9 @@ import { panic, assert, todo } from "./utils";
 import { type GameProfile, Table } from "./table";
 
 export class GameState {
+  players: string[];
   scores: Map<string, number> = $state(new Map());
-  entities: Entity[] = $state.raw([]);
+  entities: Entity[] = $state([]);
   scene: { kind: "running" } | { kind: "finished"; winner: string } = $state({
     kind: "running",
   });
@@ -14,11 +15,11 @@ export class GameState {
   timer = 0;
   events: GameEvent[] = [];
 
-  constructor(prof: GameProfile, playerIds: string[]) {
+  constructor(prof: GameProfile, players: string[]) {
+    this.players = players;
     this.profile = prof;
     this.table = new Table(prof.size.w, prof.size.w, prof.path);
-    this.scores = new Map();
-    for (const id of playerIds) {
+    for (const id of players) {
       this.scores.set(id, prof.defaultHealth);
     }
   }
@@ -40,16 +41,10 @@ export class GameState {
     for (let i = 0; i < processingEvents.length; i++) {
       const event = processingEvents[i];
       switch (event.kind) {
-        case "Fire": {
-          todo();
-          break;
-        }
         case "TakeDamage": {
           const e = this.entities.find((v) => v.id === event.target);
           if (e) {
-            console.log("taking damage...");
             e.health -= event.amount;
-            console.log("new health:", e.health);
             if (e.health <= 0) {
               processingEvents.push({
                 kind: "Death",
@@ -64,8 +59,8 @@ export class GameState {
             kind: "Death",
             target: event.target,
           });
-          assert(this.scores.has(event.targetPlayer));
-          assert(this.scores.has(event.sourcePlayer));
+          assert(this.scores.has(event.targetPlayer), "target");
+          assert(this.scores.has(event.sourcePlayer), "source");
           this.scores.set(
             event.sourcePlayer,
             this.scores.get(event.sourcePlayer) ??
@@ -83,18 +78,14 @@ export class GameState {
             return;
           }
           this.scores.set(event.targetPlayer, nextHealth);
+          this.scores = this.scores;
+          console.log(this.scores);
           break;
         }
         case "Death": {
           const idx = newEntities.findIndex((v) => v?.id === event.target);
-          console.log("idx", idx);
           if (idx != null) {
             newEntities[idx] = null;
-            console.log("debug", newEntities);
-            console.log(
-              "debug",
-              newEntities.filter((e) => e !== null),
-            );
           }
           break;
         }

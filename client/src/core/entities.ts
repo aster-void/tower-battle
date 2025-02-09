@@ -8,7 +8,7 @@ export const attackers: EntityKind[] = [
     image: "/red.png",
     health: 10,
     attacker: true,
-    speed: 0.3,
+    speed: 0.1,
     reach: 2,
     damage: 1,
     size: {

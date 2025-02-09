@@ -1,5 +1,6 @@
 import { assert, panic } from "./utils";
 import { Coord } from "./base";
+import { diffToDeg } from "./math";
 
 /**
   first coord = start
@@ -46,31 +47,46 @@ export class Path {
       }
     }
   }
-  position(w: Walkable): Coord {
+  position(posititon: number): Coord {
+    assert(posititon >= 0);
+    let p = posititon;
+    const path = this.walk();
+    while (p >= 1) {
+      path.next();
+      p--;
+    }
+    const a = path.next().value || panic("fix this 1", posititon, this);
+    const b = path.next().value || panic("fix it 2", posititon, this);
+    return b.weighted(a, p);
+  }
+  facing(w: Walkable): number {
     assert(w.progress >= 0);
     let progress = w.progress;
     const path = this.walk();
-    console.log(progress);
     while (progress >= 1) {
       path.next();
       progress--;
     }
     const a = path.next().value || panic("fix this 1", w, this);
     const b = path.next().value || panic("fix it 2", w, this);
-    console.log(progress, a, b);
-    return b.weighted(a, progress);
+    return diffToDeg(a, b) + 90 * w.direction;
   }
 }
 
 export class Walkable {
-  public progress = 0;
-  constructor(public target: string) {}
+  progress = 0;
+  constructor(
+    public target: string,
+    public direction: number,
+  ) {
+    assert(direction === 1 || direction === -1, "direction must be 1 or -1");
+  }
   step(
     path: Path,
     speed: number,
-  ): { kind: "ok"; pos: Coord } | { kind: "goal"; to: string } {
+  ): { kind: "ok"; pos: Coord; facing: number } | { kind: "goal"; to: string } {
     this.progress += speed;
-    if (this.progress >= path.length) {
+    if (this.progress >= path.length - 1) {
       return {
         kind: "goal",
         to: this.target,
@@ -78,7 +94,11 @@ export class Walkable {
     }
     return {
       kind: "ok",
-      pos: path.position(this),
+      pos:
+        this.direction > 0
+          ? path.position(this.progress)
+          : path.position(path.length - this.progress - 1),
+      facing: path.facing(this),
     };
   }
 }

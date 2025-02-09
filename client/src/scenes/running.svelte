@@ -1,10 +1,29 @@
 <script lang="ts">
   import { Coord, Entity, GameState } from "core";
+  import { onMount } from "svelte";
   import Entities from "~/renderer/Entities.svelte";
   import TableRenderer from "~/renderer/Table.svelte";
   import Scores from "~/renderer/ui/scores.svelte";
 
-  const { game }: { game: GameState } = $props();
+  const { game, player }: { game: GameState; player: string } = $props();
+
+  $inspect(game.scores);
+
+  onMount(() => {
+    const id = setInterval(() => {
+      const opponent = game.players.filter((p) => p !== player)[0];
+      const e = new Entity(
+        Math.random().toString(),
+        "atk1",
+        opponent,
+        new Coord(0, 0),
+        player,
+        1,
+      );
+      game.spawn(e);
+    }, 1000);
+    return () => clearInterval(id);
+  });
 </script>
 
 <Scores scores={game.scores} />
@@ -14,15 +33,18 @@
 <button
   class="btn btn-primary"
   onclick={() => {
-    const e = new Entity(
-      Math.random().toString(),
-      "atk1",
-      "0",
-      new Coord(3, 3),
-      "1",
-    );
-    game.spawn(e);
-    e.rotate(Math.random() * 360);
+    for (const p of game.players) {
+      if (p === player) continue;
+      const e = new Entity(
+        Math.random().toString(),
+        "atk1",
+        player,
+        new Coord(1, 5),
+        p,
+        -1,
+      );
+      game.spawn(e);
+    }
   }}
 >
   Spawn
