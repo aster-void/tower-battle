@@ -18,3 +18,6 @@ check-client:
 fix: format
 format:
     deno fmt .
+
+build:
+    cd client; bun run build
