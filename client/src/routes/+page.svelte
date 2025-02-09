@@ -14,7 +14,6 @@
       clearInterval(id);
     };
   });
-  $inspect(game.entities);
 </script>
 
 <TableRenderer table={game.table} />

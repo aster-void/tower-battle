@@ -28,7 +28,6 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
-    "core": "file:../core",
     "hono": "^4.7.0",
     "typescript-svelte-plugin": "^0.3.45"
   }

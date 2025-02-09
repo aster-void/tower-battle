@@ -5,7 +5,6 @@
     entities: Entity[];
   };
   const { entities }: Props = $props();
-  $inspect(entities);
 </script>
 
 <div id="entity-hook">

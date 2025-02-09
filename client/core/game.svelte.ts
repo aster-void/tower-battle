@@ -61,7 +61,6 @@ export class GameState {
   spawn(entity: Entity) {
     this.entities.push(entity);
     console.log("spawned", entity.kind);
-    console.log(this.entities);
   }
 
   // util functions

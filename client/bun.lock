@@ -4,7 +4,6 @@
     "": {
       "name": "client",
       "dependencies": {
-        "core": "file:../core",
         "hono": "^4.7.0",
         "typescript-svelte-plugin": "^0.3.45",
       },
@@ -202,8 +201,6 @@
     "commondir": ["commondir@1.0.1", "", {}, "sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg=="],
 
     "cookie": ["cookie@0.6.0", "", {}, "sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw=="],
-
-    "core": ["core@file:../core", { "devDependencies": { "@types/bun": "latest" }, "peerDependencies": { "typescript": "^5.0.0" } }],
 
     "daisyui": ["daisyui@5.0.0-beta.7", "", {}, "sha512-AW158KxukhyWwU9HTlfNkjAa9nPcfUZilITK7Taa3pqwVH/Suq31+1FHVcw7zLVRRw5jBUKrJ76xBQJOcRiKgQ=="],
 

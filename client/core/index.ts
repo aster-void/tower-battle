@@ -1,6 +1,6 @@
 export * from "./types";
 export * from "./base";
-export * from "./game";
+export * from "./game.svelte";
 export * from "./entities";
 export * from "./entity";
 export * from "./path";
