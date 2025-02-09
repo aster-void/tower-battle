@@ -1,9 +1,12 @@
+import type { Entity } from "./entity.svelte";
+
 export type EntityID = string;
 export type EntityKindID = string;
 
 export type EntityKind = {
   name: EntityKindID;
   kind: "attacker" | "defender";
+  cost: number;
   size: {
     width: number;
     height: number;
@@ -14,21 +17,25 @@ export type EntityKind = {
   damage: number;
   attacker: boolean;
   speed: number;
+  goalScore: number;
+  killScore: number;
 };
 
 export type GameEvent =
   | {
       kind: "TakeDamage";
-      target: EntityID;
+      target: Entity;
+      by: Entity | null;
       amount: number;
     }
   | {
       kind: "Death";
-      target: EntityID;
+      target: Entity;
+      killer: Entity | null; // team id
     }
   | {
       kind: "Goal";
-      target: EntityID;
+      target: Entity;
       sourcePlayer: string;
       targetPlayer: string;
     };

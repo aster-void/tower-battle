@@ -1,11 +1,8 @@
 <script lang="ts">
-  const { scores }: { scores: Map<string, number> } = $props();
+  const { scores }: { scores: { you: number; cp: number } } = $props();
 </script>
 
 <div class="absolute">
-  {#each scores as [player, score]}
-    <div>
-      <span>{player}: {score}</span>
-    </div>
-  {/each}
+  <div>You: {scores.you}</div>
+  <div>CP: {scores.cp}</div>
 </div>

@@ -69,7 +69,7 @@ export class Path {
     }
     const a = path.next().value || panic("fix this 1", w, this);
     const b = path.next().value || panic("fix it 2", w, this);
-    return diffToDeg(a, b) + 90 * w.direction;
+    return diffToDeg(a, b) + (w.direction + 1) * 180;
   }
 }
 

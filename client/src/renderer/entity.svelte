@@ -5,18 +5,12 @@
     entity: Entity;
     ctx: GameState;
   };
-  const { entity, ctx }: Props = $props();
+  const { entity }: Props = $props();
   const kind = entity.kind;
 </script>
 
 <img
-  onclick={() => {
-    ctx.events.push({
-      kind: "TakeDamage",
-      target: entity.id,
-      amount: 4,
-    });
-  }}
+  id={entity.id}
   src={kind.image}
   height={kind.size.height * CELL_SIZE.value}
   width={kind.size.width * CELL_SIZE.value}
@@ -26,7 +20,7 @@
     left: {entity.pos.x * CELL_SIZE.value}px;
     height: {kind.size.height * CELL_SIZE.value}px;
     width: {kind.size.width * CELL_SIZE.value}px;
-    transform: rotate({Math.floor(entity.rotation)}deg);
+    transform: rotate({Math.floor((entity.rotation + 720) % 360)}deg);
   "
   draggable="false"
   alt=""

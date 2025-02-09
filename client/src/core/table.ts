@@ -15,8 +15,7 @@ export type GameProfile = {
   };
   path: Path;
   defaultHealth: number;
-  goalScore: number;
-  killScore: number;
+  moneyGain: number;
 };
 const profiles: GameProfile[] = [
   {
@@ -33,8 +32,7 @@ const profiles: GameProfile[] = [
       new Coord(1, 6),
     ]),
     defaultHealth: 100,
-    goalScore: 10,
-    killScore: 1,
+    moneyGain: 3,
   },
 ];
 export const profile = profiles[0];

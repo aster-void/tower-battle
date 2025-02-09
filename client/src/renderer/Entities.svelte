@@ -9,7 +9,7 @@
 </script>
 
 <div id="entity-hook" class="relative">
-  {#each entities as entity}
+  {#each entities as entity (entity.id)}
     <EntityRenderer {entity} {ctx} />
   {/each}
 </div>

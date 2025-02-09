@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { GameState } from "core";
 
-  const { game, player }: { game: GameState; player: string } = $props();
+  const {
+    game,
+    player,
+    reset,
+  }: { game: GameState; player: string; reset: () => void } = $props();
 </script>
 
 {#if game.scene.kind === "finished"}
@@ -12,4 +16,6 @@
       you lose...
     {/if}
   </h1>
+
+  <button class="btn btn-primary" onclick={reset}>Play again</button>
 {/if}
