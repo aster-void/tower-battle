@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { Coord, Entity, GameState, profile } from "core";
   import { onMount } from "svelte";
-  import Entities from "~/renderer/Entities.svelte";
-  import TableRenderer from "~/renderer/Table.svelte";
+  import { GameState, profile } from "core";
+  import Running from "~/scenes/running.svelte";
+  import Finished from "~/scenes/finished.svelte";
 
-  let game = $state(new GameState(profile, ["0"], 100));
+  let game = $state(new GameState(profile, ["0", "1"]));
 
   onMount(() => {
     const id = setInterval(() => {
-      game.tick();
+      if (game.scene.kind === "running") {
+        game.tick();
+      }
     }, 500);
     return () => {
       clearInterval(id);
@@ -16,13 +18,8 @@
   });
 </script>
 
-<TableRenderer table={game.table} />
-<Entities entities={game.entities} />
-
-<button
-  class="btn btn-primary"
-  onclick={() => {
-    game.spawn(new Entity(Math.random().toString(), "a", "0", new Coord(3, 3)));
-    game = game;
-  }}>Spawn</button
->
+{#if game.scene.kind === "running"}
+  <Running {game} />
+{:else if game.scene.kind === "finished"}
+  <Finished {game} />
+{/if}

@@ -8,14 +8,17 @@ export class Cell {
   ) {}
 }
 
-export type PathProfile = {
+export type GameProfile = {
   size: {
     w: number;
     h: number;
   };
   path: Path;
+  defaultHealth: number;
+  goalScore: number;
+  killScore: number;
 };
-const path_profiles: PathProfile[] = [
+const profiles: GameProfile[] = [
   {
     size: {
       w: 6,
@@ -29,9 +32,12 @@ const path_profiles: PathProfile[] = [
       new Coord(1, 4),
       new Coord(1, 5),
     ]),
+    defaultHealth: 100,
+    goalScore: 10,
+    killScore: 1,
   },
 ];
-export const profile = path_profiles[0];
+export const profile = profiles[0];
 
 export class Table {
   path: Path;

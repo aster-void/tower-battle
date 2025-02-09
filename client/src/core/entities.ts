@@ -3,12 +3,12 @@ import { panic } from "./utils";
 
 export const attackers: EntityKind[] = [
   {
-    name: "a",
+    name: "atk1",
     kind: "attacker",
     image: "/red.png",
     health: 10,
     attacker: true,
-    speed: 10,
+    speed: 0.3,
     reach: 2,
     damage: 1,
     size: {
@@ -20,7 +20,7 @@ export const attackers: EntityKind[] = [
 
 export const intercepters: EntityKind[] = [
   {
-    name: "b",
+    name: "def1",
     kind: "defender",
     image: "/red.png",
     health: 1,

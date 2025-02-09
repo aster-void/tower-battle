@@ -1,49 +1,63 @@
 import { Coord } from "./base";
 import { Walkable } from "./path";
-import type { EntityID, GameEvent, EntityKind, EntityKindID } from "./types";
-import type { GameState } from "./game";
+import type { EntityID, EntityKind, EntityKindID } from "./types";
+import type { GameState } from "./game.svelte";
 import { getEntityKind } from "./entities";
+import { assert, panic } from "./utils";
 
 export class Entity {
   id: EntityID;
   kind: EntityKind;
   team: string;
-  pos: Coord;
+  pos: Coord = $state(new Coord(0, 0));
   // 360 max.
   rotation: number;
-  walkable: Walkable = new Walkable();
+  health: number;
+  walk: Walkable | null;
 
-  constructor(id: EntityID, kind: EntityKindID, team: string, pos: Coord) {
+  constructor(
+    id: EntityID,
+    kind: EntityKindID,
+    team: string,
+    pos: Coord,
+    public targetPlayer: string | null,
+  ) {
     this.id = id;
     this.kind = getEntityKind(kind);
     this.team = team;
     this.pos = pos;
     this.rotation = 0;
+    this.health = this.kind.health;
+    this.walk = this.targetPlayer ? new Walkable(this.targetPlayer) : null;
   }
 
-  tick(ctx: GameState): GameEvent[] {
-    const events: GameEvent[] = [];
+  tick(ctx: GameState) {
     const t = this.findTarget(ctx);
     const target = t ? ctx.locate(t) : null;
+    console.log("ticking", this.id);
     if (target) {
       // attack
+      console.log("attacking", target.kind.name);
       this.faceAt(target.pos);
     } else if (this.kind.kind === "attacker") {
       // walk
-      const result = this.walkable.step(ctx.table.path, this.kind.speed);
-      if (result === "goal") {
-        events.push({
+      console.log("walking");
+      if (!this.walk) panic("you shouldn't walk a non-walker");
+      const result = this.walk.step(ctx.table.path, this.kind.speed);
+      if (result.kind === "goal") {
+        ctx.events.push({
           kind: "Goal",
           target: this.id,
-          goalingPlayer: this.team,
+          sourcePlayer: this.team,
+          targetPlayer: result.to,
         });
       } else {
-        this.walkable = result;
+        this.pos = result.pos;
       }
     } else {
+      console.log("noop");
       // stay = noop
     }
-    return events;
   }
 
   findTarget(ctx: GameState): EntityID | null {
@@ -52,13 +66,16 @@ export class Entity {
         entity: e,
         dist: this.pos.distance(e.pos),
       }))
-      .filter((t) => t.dist < this.kind.reach)
+      .filter((t) => t.entity.team !== this.team && t.dist < this.kind.reach)
       .sort((a, b) => a.dist - b.dist)
       .map((t) => t.entity);
     return reachable[0]?.id ?? null;
   }
   faceAt(other: Coord) {
-    this.rotation = diffToDeg(this.pos, other);
+    this.rotate(diffToDeg(this.pos, other));
+  }
+  rotate(rotation: number) {
+    this.rotation = rotation;
   }
 }
 

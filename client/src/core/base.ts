@@ -5,6 +5,9 @@ export class Coord {
     this.x = x;
     this.y = y;
   }
+  copy() {
+    return new Coord(this.x, this.y);
+  }
 
   distance(other: Coord): number {
     return Math.sqrt((other.x - this.x) ** 2 + (other.y - this.y) ** 2);

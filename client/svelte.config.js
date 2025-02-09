@@ -10,8 +10,8 @@ const config = {
   kit: {
     adapter: adapter(),
     alias: {
-      "~": "src",
-      "core": "core"
+      "core": "src/core",
+      "~": "src"
     },
     files:{
       assets: "./static"

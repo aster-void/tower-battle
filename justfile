@@ -1,6 +1,5 @@
 i: install
 install:
-    cd core; bun install
     cd server; bun install
     cd client; bun install
     just sync
@@ -15,9 +14,7 @@ dev-client:
 dev-server:
     cd server; bun dev
 
-check: check-core check-server check-client
-check-core:
-    cd core; bun check
+check: check-server check-client
 check-server:
     cd server; bun check
 check-client:

@@ -21,6 +21,7 @@ export type GameEvent =
       kind: "Fire";
       shooter: EntityID;
       target: EntityID;
+      amount: number;
     }
   | {
       kind: "TakeDamage";
@@ -34,5 +35,6 @@ export type GameEvent =
   | {
       kind: "Goal";
       target: EntityID;
-      goalingPlayer: string;
+      sourcePlayer: string;
+      targetPlayer: string;
     };

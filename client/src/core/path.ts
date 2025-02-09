@@ -40,7 +40,7 @@ export class Path {
 
       const iter = new Coord(a.x, a.y);
       while (!b.eq(iter)) {
-        yield iter;
+        yield iter.copy();
         iter.y += direction[0];
         iter.x += direction[1];
       }
@@ -50,22 +50,35 @@ export class Path {
     assert(w.progress >= 0);
     let progress = w.progress;
     const path = this.walk();
+    console.log(progress);
     while (progress >= 1) {
       path.next();
       progress--;
     }
     const a = path.next().value || panic("fix this 1", w, this);
     const b = path.next().value || panic("fix it 2", w, this);
-    return a.weighted(b, progress);
+    console.log(progress, a, b);
+    return b.weighted(a, progress);
   }
 }
 
 export class Walkable {
   public progress = 0;
-  step(path: Path, speed: number): Walkable | "goal" {
-    const next = new Walkable();
-    next.progress = this.progress;
-    next.progress += speed;
-    return next;
+  constructor(public target: string) {}
+  step(
+    path: Path,
+    speed: number,
+  ): { kind: "ok"; pos: Coord } | { kind: "goal"; to: string } {
+    this.progress += speed;
+    if (this.progress >= path.length) {
+      return {
+        kind: "goal",
+        to: this.target,
+      };
+    }
+    return {
+      kind: "ok",
+      pos: path.position(this),
+    };
   }
 }
