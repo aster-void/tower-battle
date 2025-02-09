@@ -1,14 +1,11 @@
 <script lang="ts">
   import { CELL_SIZE } from "$lib/states.svelte";
   import type { Entity } from "core";
-  import { entities } from "core";
-  import { panic } from "~/lib";
   type Props = {
     entity: Entity;
   };
   const { entity }: Props = $props();
-  const kind =
-    entities.get(entity.kind) || panic("entity kind not found", entity.kind);
+  const kind = entity.kind;
 </script>
 
 <img
@@ -16,6 +13,8 @@
   height={kind.size.height * CELL_SIZE.value}
   width={kind.size.width * CELL_SIZE.value}
   style="position: absolute"
+  style:top={entity.pos.y * CELL_SIZE.value}
+  style:left={entity.pos.x * CELL_SIZE.value}
   style:height="{kind.size.height * CELL_SIZE.value}px"
   style:width="{kind.size.width * CELL_SIZE.value}px"
   style:transform="rotate:{entity.rotation}deg"

@@ -11,6 +11,9 @@ const config = {
     adapter: adapter(),
     alias: {
       "~": "src"
+    },
+    files:{
+      assets: "./static"
     }
   },
 };

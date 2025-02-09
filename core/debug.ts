@@ -1,4 +1,5 @@
-import { Table } from "./table";
+import { GameState } from "./game";
 import { profile } from "./table";
 
-new Table(profile.size.w, profile.size.h, profile.path);
+const state = new GameState(profile, ["0"], 100);
+state.tick();

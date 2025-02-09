@@ -7,9 +7,6 @@
         "core": "file:../core",
         "hono": "^4.6.20",
       },
-      "devDependencies": {
-        "@types/bun": "latest",
-      },
     },
   },
   "packages": {

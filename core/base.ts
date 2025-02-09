@@ -9,6 +9,9 @@ export class Coord {
   distance(other: Coord): number {
     return Math.sqrt((other.x - this.x) ** 2 + (other.y - this.y) ** 2);
   }
+  diff(other: Coord): Coord {
+    return new Coord(other.x - this.x, other.y - this.y);
+  }
   eq(other: Coord) {
     return this.x === other.x && this.y === other.y;
   }

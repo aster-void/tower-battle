@@ -30,4 +30,9 @@ export type GameEvent =
   | {
       kind: "Death";
       target: EntityID;
+    }
+  | {
+      kind: "Goal";
+      target: EntityID;
+      goalingPlayer: string;
     };

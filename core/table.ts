@@ -8,7 +8,14 @@ export class Cell {
   ) {}
 }
 
-const path_profiles = [
+export type PathProfile = {
+  size: {
+    w: number;
+    h: number;
+  };
+  path: Path;
+};
+const path_profiles: PathProfile[] = [
   {
     size: {
       w: 6,

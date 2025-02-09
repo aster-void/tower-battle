@@ -43,7 +43,6 @@ export class Path {
         yield iter;
         iter.y += direction[0];
         iter.x += direction[1];
-        console.log(b, iter);
       }
     }
   }
@@ -63,7 +62,7 @@ export class Path {
 
 export class Walkable {
   public progress = 0;
-  next(speed: number) {
+  step(path: Path, speed: number): Walkable | "goal" {
     const next = new Walkable();
     next.progress = this.progress;
     next.progress += speed;

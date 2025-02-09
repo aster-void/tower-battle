@@ -5,7 +5,7 @@ export const attackers: EntityKind[] = [
   {
     name: "a",
     kind: "attacker",
-    image: "todo",
+    image: "/red.png",
     health: 10,
     attacker: true,
     speed: 10,
@@ -22,7 +22,7 @@ export const intercepters: EntityKind[] = [
   {
     name: "b",
     kind: "defender",
-    image: "todo",
+    image: "/red.png",
     health: 1,
     damage: 1,
     reach: 5,

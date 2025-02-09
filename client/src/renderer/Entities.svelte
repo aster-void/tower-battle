@@ -5,8 +5,11 @@
     entities: Entity[];
   };
   const { entities }: Props = $props();
+  $inspect(entities);
 </script>
 
-{#each entities as entity}
-  <EntityRenderer {entity} />
-{/each}
+<div id="entity-hook">
+  {#each entities as entity}
+    <EntityRenderer {entity} />
+  {/each}
+</div>

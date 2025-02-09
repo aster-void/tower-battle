@@ -7,8 +7,5 @@
   "dependencies": {
     "hono": "^4.6.20",
     "core": "file:../core"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
   }
 }
