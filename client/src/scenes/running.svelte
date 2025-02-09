@@ -22,13 +22,15 @@
 
   $inspect(game.scores);
   const opponent = game.players.filter((p) => p !== player)[0];
+
+  let difficulty = $state(30);
+  const interval = $derived(1000 / difficulty);
   onMount(() => {
-    const INTERVAL = 50;
     let cooldown = 0;
     const id = setInterval(() => {
       if (!paused) {
         cooldown++;
-        if (cooldown >= INTERVAL) {
+        if (cooldown >= interval) {
           cooldown = 0;
           const e = Entity.Attacker("atk1", opponent, player, 1);
           game.spawn(e);
@@ -69,8 +71,34 @@
   </button>
 {/each}
 
+<div>
+  <label class="flex m-6">
+    <span class="text-xl">Difficulty</span>
+    <span
+      class:range-accent={difficulty < 15}
+      class:range-success={15 <= difficulty && difficulty < 25}
+      class:range-warning={25 <= difficulty && difficulty < 40}
+      class:range-error={40 <= difficulty}
+    >
+      {difficulty}
+    </span>
+    <input
+      type="range"
+      min="1"
+      max="50"
+      bind:value={difficulty}
+      class="range"
+      class:range-accent={difficulty < 15}
+      class:range-success={15 <= difficulty && difficulty < 25}
+      class:range-warning={25 <= difficulty && difficulty < 40}
+      class:range-error={40 <= difficulty}
+    />
+  </label>
+</div>
+
 <style>
   * {
+    margin: 16px 4px;
     user-select: none;
   }
 </style>
