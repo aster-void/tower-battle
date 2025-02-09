@@ -20,7 +20,6 @@
     "@tailwindcss/postcss": "^4.0.4",
     "daisyui": "^5.0.0-beta.7",
     "postcss": "^8.5.1",
-    "server": "file:../server",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
     "tailwindcss": "^4.0.4",
@@ -28,6 +27,7 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
+    "@sveltejs/adapter-static": "^3.0.8",
     "hono": "^4.7.0",
     "typescript-svelte-plugin": "^0.3.45"
   }
