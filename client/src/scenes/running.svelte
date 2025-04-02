@@ -1,5 +1,6 @@
 <script lang="ts">
   import { attackers, Entity, GameState } from "core";
+  import { state } from "core/persist.svelte";
   import { onMount } from "svelte";
   import Pause from "~/overlays/pause.svelte";
   import Entities from "~/renderer/Entities.svelte";
@@ -22,8 +23,7 @@
 
   const opponent = game.players.filter((p) => p !== player)[0];
 
-  let difficulty = $state(30);
-  const interval = $derived(1000 / difficulty);
+  const interval = $derived(1000 / state.difficulty);
   onMount(() => {
     let cooldown = 0;
     const id = setInterval(() => {
@@ -79,23 +79,23 @@
   <label class="flex m-6">
     <span class="text-xl">Difficulty</span>
     <span
-      class:range-accent={difficulty < 15}
-      class:range-success={15 <= difficulty && difficulty < 25}
-      class:range-warning={25 <= difficulty && difficulty < 40}
-      class:range-error={40 <= difficulty}
+      class:range-accent={state.difficulty < 15}
+      class:range-success={15 <= state.difficulty && state.difficulty < 25}
+      class:range-warning={25 <= state.difficulty && state.difficulty < 40}
+      class:range-error={40 <= state.difficulty}
     >
-      {difficulty}
+      {state.difficulty}
     </span>
     <input
       type="range"
       min="1"
       max="50"
-      bind:value={difficulty}
+      bind:value={state.difficulty}
       class="range"
-      class:range-accent={difficulty < 15}
-      class:range-success={15 <= difficulty && difficulty < 25}
-      class:range-warning={25 <= difficulty && difficulty < 40}
-      class:range-error={40 <= difficulty}
+      class:range-accent={state.difficulty < 15}
+      class:range-success={15 <= state.difficulty && state.difficulty < 25}
+      class:range-warning={25 <= state.difficulty && state.difficulty < 40}
+      class:range-error={40 <= state.difficulty}
     />
   </label>
 </div>
