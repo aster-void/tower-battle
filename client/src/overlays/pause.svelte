@@ -25,7 +25,7 @@
 </script>
 
 <dialog bind:this={modal} class="modal">
-  <div class="modal-box">
+  <div class="modal-box transition-none">
     <form bind:this={form} method="dialog"></form>
     <h3 class="text-lg font-bold m-6">PAUSE</h3>
     <button

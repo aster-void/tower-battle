@@ -20,7 +20,6 @@
     scores: { you: number; cp: number };
   } = $props();
 
-  $inspect(game.scores);
   const opponent = game.players.filter((p) => p !== player)[0];
 
   let difficulty = $state(30);
@@ -39,39 +38,44 @@
     }, 50);
     return () => clearInterval(id);
   });
-
-  $inspect(game.entities);
 </script>
 
 <Pause bind:paused {reset} />
-<Scores {scores} />
-<Entities entities={game.entities} ctx={game} />
-<TableRenderer table={game.table} />
+<div class="flex top flex-row justify-center">
+  <div class="w-fit">
+    <Scores {scores} />
+    <Entities entities={game.entities} ctx={game} />
+    <TableRenderer table={game.table} />
+  </div>
+</div>
 
-<span class="text-yellow-500">
-  ${game.money}
-</span>
-{#each attackers as entity}
-  <button
-    class="btn btn-primary"
-    disabled={game.money < entity.cost}
-    onclick={() => {
-      game.money -= entity.cost;
-      for (const o of game.players) {
-        if (o === player) continue;
-        const e = Entity.Attacker(entity.name, player, o, -1);
-        game.spawn(e);
-      }
-    }}
-  >
-    Spawn {entity.name}
-    <span class="text-yellow-300">
-      ${entity.cost}
-    </span>
-  </button>
-{/each}
-
-<div>
+<div class="flex flex-row justify-center">
+  <span class="text-yellow-500">
+    ${game.money}
+  </span>
+</div>
+<div class="flex flex-row justify-center flex-wrap">
+  {#each attackers as entity}
+    <button
+      class="btn btn-primary"
+      disabled={game.money < entity.cost}
+      onclick={() => {
+        game.money -= entity.cost;
+        for (const o of game.players) {
+          if (o === player) continue;
+          const e = Entity.Attacker(entity.name, player, o, -1);
+          game.spawn(e);
+        }
+      }}
+    >
+      Spawn {entity.name}
+      <span class="text-yellow-300">
+        ${entity.cost}
+      </span>
+    </button>
+  {/each}
+</div>
+<div class="flex flex-row justify-center flex-wrap">
   <label class="flex m-6">
     <span class="text-xl">Difficulty</span>
     <span
@@ -97,7 +101,7 @@
 </div>
 
 <style>
-  * {
+  *:not(.top) {
     margin: 16px 4px;
     user-select: none;
   }

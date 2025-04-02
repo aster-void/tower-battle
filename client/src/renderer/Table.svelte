@@ -11,7 +11,7 @@
 
 <div id="ground">
   {#each table.cells as row, ri (ri)}
-    <div>
+    <div class="w-fit">
       {#each row as cell, ci (ci)}
         {#if cell.kind === "path"}
           <img

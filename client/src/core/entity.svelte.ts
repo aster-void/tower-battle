@@ -22,7 +22,7 @@ export class Entity {
     targetPlayer: string | null,
     direction: number,
   ) {
-    return new Entity(kind, team, new Coord(-5, 0), targetPlayer, direction);
+    return new Entity(kind, team, new Coord(0, -5), targetPlayer, direction);
   }
 
   constructor(

@@ -17,7 +17,7 @@
     {/if}
   </h1>
 
-  <div class="flex flex-row">
+  <div class="flex flex-row justify-center mt-20">
     <button class="btn btn-primary" onclick={reset}>Play again</button>
   </div>
 {/if}
